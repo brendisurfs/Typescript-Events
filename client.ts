@@ -19,5 +19,8 @@ server.on("response", (res: string) => {
 
 // when there is user input
 rl.on("line", (ipt) => {
-    client.emit("command", ipt);
+    let argsplit = ipt.split(" ");
+    let userCmd = argsplit[0];
+    let userString = argsplit[1];
+    client.emit("command", [userCmd, userString]);
 });
