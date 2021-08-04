@@ -6,6 +6,7 @@ class Server extends EventEmitter {
         client.on("command", (command) => {
             switch (command) {
                 case "help":
+                    this.help();
                 case "add":
                 case "ls":
                 case "delete":
