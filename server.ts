@@ -3,18 +3,30 @@ import EventEmitter from "events";
 class Server extends EventEmitter {
     constructor(public client: EventEmitter) {
         super();
-        client.on("command", (command) => {
+        client.on("command", (command: string) => {
             switch (command) {
                 case "help":
-                    this.help();
                 case "add":
                 case "ls":
                 case "delete":
+                    this[command]();
+                    break;
+                default:
+                    this.emit("unknown repsonse");
             }
         });
     }
-    help() {
+    help(): void {
         this.emit("response", "help...");
+    }
+    add(): void {
+        this.emit("response", "add time!");
+    }
+    ls(): void {
+        this.emit("response", "ls..");
+    }
+    delete() {
+        this.emit("response", "delete...");
     }
 }
 

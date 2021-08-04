@@ -1,5 +1,4 @@
 import { EventEmitter } from "events";
-import child_process from "child_process";
 import readline from "readline";
 
 const rl = readline.createInterface({
@@ -11,13 +10,14 @@ const client = new EventEmitter();
 import { servo } from "./server";
 const server = servo(client);
 
-// when there is user input
-rl.on("line", (ipt) => {
-    console.clear(); // clears the ouput
-    client.emit("command", ipt);
+// when there is a repsonse from the server.
+server.on("response", (res: string) => {
+    process.stdout.write("\u001B[2J\u001B[0;0f"); // clears the ouput
+    process.stdout.write(res);
+    process.stdout.write(`\n\>`);
 });
 
-// when there is a repsonse from the server.
-server.on("response", (res: any) => {
-    console.log(`${res}`);
+// when there is user input
+rl.on("line", (ipt) => {
+    client.emit("command", ipt);
 });
