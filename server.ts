@@ -3,6 +3,9 @@ import EventEmitter from "events";
 class Server extends EventEmitter {
     constructor(public client: EventEmitter) {
         super();
+        process.nextTick(() => {
+            this.emit("response", "type a command (help to list commands)");
+        });
         client.on("command", (command: string) => {
             switch (command) {
                 case "help":
@@ -12,7 +15,7 @@ class Server extends EventEmitter {
                     this[command]();
                     break;
                 default:
-                    this.emit("unknown repsonse");
+                    this.emit("response", "unknown repsonse");
             }
         });
     }
