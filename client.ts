@@ -5,7 +5,7 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
 });
-
+// new event stream connection to server
 const client = new EventEmitter();
 import { servo } from "./server";
 const server = servo(client);

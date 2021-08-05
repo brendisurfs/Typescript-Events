@@ -28,7 +28,8 @@ class Server extends EventEmitter {
     add(info: string): void {
         this.emit("response", "add time!");
         let userStore: string[] = [...info];
-        fs.writeFile("./list.txt", (err, res) => {});
+        // NOTE: replace this with the array once its fixed.
+        fs.writeFileSync("./list.txt", "this is some test idea");
     }
     ls(): void {
         this.emit("response", "ls..");
